@@ -4,37 +4,84 @@ void main() {
   runApp(
     MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.grey,
         appBar: AppBar(
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.teal,
+          title: Text(
+            'PROFILE',
+            style: TextStyle(
+              fontSize: 40.0,
+            ),
+          ),
           centerTitle: true,
-          leading: Icon(Icons.mail_outlined),
-          title: Text('Hello World'),
         ),
         body: Center(
           child: Column(
             children: [
-              Image(
-                image: NetworkImage(
-                    'https://images.unsplash.com/photo-1634901705540-51ecd093b267?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=388&q=80'),
-                height: 200,
+              CircleAvatar(
+                radius: 100,
+                backgroundImage: AssetImage('images/wrdo.png'),
               ),
-              Image(
-                image: AssetImage('images/wrdo.png'),
-                height: 200,
-              ),
-              Text(
-                'Hello World',
-                style: TextStyle(fontSize: 40, color: Colors.red),
+              SizedBox(
+                height: 25,
               ),
               Container(
                 width: 300,
-                height: 200,
-                color: Colors.teal,
+                color: Colors.black,
+                padding: EdgeInsets.all(10),
                 child: Text(
-                  '23/10/2021',
+                  'Your Name',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                width: 300,
+                color: Colors.black,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'UserName',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                width: 300,
+                color: Colors.black,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Email',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                width: 300,
+                color: Colors.black,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Cupidatat excepteur exercitation occaecat amet. Incididunt eiusmod eiusmod dolore esse esse excepteur laboris minim cupidatat. Officia culpa sunt mollit duis eiusmod tempor sunt minim irure esse voluptate. Occaecat aute et fugiat nulla deserunt sint irure adipisicing occaecat tempor reprehenderit.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                   ),
                 ),
