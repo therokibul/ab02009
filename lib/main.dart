@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                     top: 210,
                     left: 180,
                     child: CircleAvatar(
-                      radius: 80,
+                      radius: 75,
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: 70,
