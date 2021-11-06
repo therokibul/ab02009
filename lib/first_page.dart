@@ -6,40 +6,41 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Center(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Image(
-                image: AssetImage(
-                  'images/cat.jpg',
-                ),
-                
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.teal,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, MyRoute.firstRoute);
-                },
-                child: Text(
-                  'Goto Second Page',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
+    final List _icons = [
+      Icons.ac_unit,
+      Icons.five_g,
+      Icons.safety_divider,
+      Icons.flag,
+      Icons.dangerous,
+      Icons.e_mobiledata,
+    ];
+
+    Widget _buildicon(int index) {
+      return Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.teal,
+          borderRadius: BorderRadius.circular(16),
         ),
+        child: Icon(
+          _icons[index],
+          size: 60,
+          // color: Colors.teal,
+        ),
+      );
+    }
+
+    return Material(
+      child: GridView.builder(
+        itemCount: _icons.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return _buildicon(index);
+        },
       ),
     );
   }
