@@ -1,46 +1,71 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 
-class FirstPage extends StatelessWidget {
+class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
 
   @override
+  _FirstPageState createState() => _FirstPageState();
+}
+
+String name = '';
+
+bool changeButton = false;
+
+class _FirstPageState extends State<FirstPage> {
+  @override
   Widget build(BuildContext context) {
-    final List _icons = [
-      Icons.ac_unit,
-      Icons.five_g,
-      Icons.safety_divider,
-      Icons.flag,
-      Icons.dangerous,
-      Icons.e_mobiledata,
-    ];
-
-    Widget _buildicon(int index) {
-      return Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.teal,
-          borderRadius: BorderRadius.circular(16),
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Welcome $name',
+                textScaleFactor: 5,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: ' User Name',
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    name = value;
+                  });
+                },
+              ),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: ' Password',
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    changeButton = !changeButton;
+                  });
+                },
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 3),
+                  width: changeButton ? 50 : 300,
+                  margin: EdgeInsets.all(25),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: changeButton
+                      ? Icon(Icons.border_right)
+                      : Text(
+                          'Button',
+                          textAlign: TextAlign.center,
+                        ),
+                ),
+              ),
+            ],
+          ),
         ),
-        child: Icon(
-          _icons[index],
-          size: 60,
-          // color: Colors.teal,
-        ),
-      );
-    }
-
-    return Material(
-      child: GridView.builder(
-        itemCount: _icons.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return _buildicon(index);
-        },
       ),
     );
   }
