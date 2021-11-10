@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'first_page.dart';
-// import 'second_page.dart';
+import 'second_page.dart';
 
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       routes: {
           "/": (context) => FirstPage(),
-          // MyRoute.firstRoute: (context) => SecondPage(),
+          MyRoute.firstRoute: (context) => SecondPage(),
 
       },
     );

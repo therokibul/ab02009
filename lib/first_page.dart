@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class FirstPage extends StatefulWidget {
   const FirstPage({Key? key}) : super(key: key);
 
@@ -41,18 +43,21 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   setState(() {
                     changeButton = !changeButton;
                   });
+                  await Future.delayed(Duration(seconds: 3));
+                  Navigator.pushNamed(context, MyRoute.firstRoute);
                 },
                 child: AnimatedContainer(
+                  
                   duration: Duration(seconds: 3),
                   width: changeButton ? 50 : 300,
                   margin: EdgeInsets.all(25),
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: changeButton ? Colors.red : Colors.green,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: changeButton
