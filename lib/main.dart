@@ -1,29 +1,42 @@
-
+import 'package:ab02009/screens/first.dart';
+import 'package:ab02009/screens/homepage.dart';
+import 'package:ab02009/screens/second.dart';
+import 'package:ab02009/screens/third.dart';
 import 'package:flutter/material.dart';
-import 'first_page.dart';
-import 'second_page.dart';
-
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        fontFamily: 'YujiMai',
+      ),
       initialRoute: "/",
       routes: {
-          "/": (context) => FirstPage(),
-          MyRoute.firstRoute: (context) => SecondPage(),
-
+        "/": (context) => HomePage(),
+        MyRoute.firstRoute: (context) => First(),
+        MyRoute.secondRoute: (context) => Second(),
+        MyRoute.thirdRoute: (context) => Third(),
       },
     );
   }
 }
 
-class MyRoute{
+class MyRoute {
   static String firstRoute = '/first';
+  static String secondRoute = '/second';
+  static String thirdRoute = '/third';
 }
