@@ -8,7 +8,7 @@ class Third extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Container(color: Colors.green),
+      body: Container(color: Colors.purple),
     );
   }
 }

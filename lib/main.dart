@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: {
         "/": (context) => HomePage(),
-        MyRoute.firstRoute: (context) => First(),
+        
         MyRoute.secondRoute: (context) => Second(),
         MyRoute.thirdRoute: (context) => Third(),
       },
@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyRoute {
-  static String firstRoute = '/first';
+ 
   static String secondRoute = '/second';
   static String thirdRoute = '/third';
 }

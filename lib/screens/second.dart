@@ -1,14 +1,18 @@
+import 'package:ab02009/utils/constaints.dart';
 import 'package:ab02009/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class Second extends StatelessWidget {
-  const Second({ Key? key }) : super(key: key);
-
+  const Second({Key? key,}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: CustomAppBar(),
-    body: Container(color: Colors.green),
-    
+    return Scaffold(
+      appBar: CustomAppBar(),
+      body: Container(
+        color: Colors.red,
+        child: Text('firstData'),
+      ),
     );
   }
 }
