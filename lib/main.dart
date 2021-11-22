@@ -1,8 +1,7 @@
-import 'package:ab02009/screens/first.dart';
-import 'package:ab02009/screens/homepage.dart';
-import 'package:ab02009/screens/second.dart';
-import 'package:ab02009/screens/third.dart';
+import 'package:ab02009/screens/home_mobile.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/homepage.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,19 +23,25 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.purple,
         fontFamily: 'YujiMai',
       ),
-      initialRoute: "/",
-      routes: {
-        "/": (context) => HomePage(),
-        
-        MyRoute.secondRoute: (context) => Second(),
-        MyRoute.thirdRoute: (context) => Third(),
-      },
+      home: Scaffold(
+        body: Layout(),
+      ),
     );
   }
 }
 
-class MyRoute {
- 
-  static String secondRoute = '/second';
-  static String thirdRoute = '/third';
+class Layout extends StatelessWidget {
+  const Layout({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth < 600) {
+        return HomeMobile();
+      } else { 
+        return HomePage();
+      }
+    });
+  }
 }
