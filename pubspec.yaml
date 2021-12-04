@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  math_expressions: ^2.2.0
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
