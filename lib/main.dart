@@ -1,8 +1,6 @@
-import 'package:ab02009/pages/wellcome.dart';
-import 'package:ab02009/pages/details.dart';
+import 'package:ab02009/pages/second.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'pages/home.dart';
 
 void main() => runApp(MyApp());
@@ -19,9 +17,9 @@ class MyApp extends StatelessWidget {
       // home: Wellcome(),
       initialRoute: "/",
       getPages: [
-        GetPage(name: "/", page: () => Wellcome()),
-        GetPage(name: '/home', page: () => Home()),
-        GetPage(name: '/details', page: () => Details()),
+        GetPage(name: "/", page: () => Home()),
+        GetPage(name: '/second', page: () => Second()),
+        
       ],
     );
   }

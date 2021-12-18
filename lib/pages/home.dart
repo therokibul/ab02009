@@ -1,62 +1,56 @@
-import 'dart:convert';
-
+import 'package:ab02009/controller/counter_controller.dart';
+import 'package:ab02009/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  List album = [];
-  Future getData() async {
-    await DefaultAssetBundle.of(context)
-        .loadString('assets/json/photolist.json')
-        .then((value) {
-      setState(() {
-        album = jsonDecode(value);
-      });
-    });
-  }
-
-  @override
-  initState() {
-    super.initState();
-    getData();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-        body: Center(
-      child: Container(
-        height: 300,
-        child: ListView.builder(
-            itemCount: album.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Get.toNamed('/details', arguments: {
-                    'title': album[index]['title'].toString(),
-                    'id': album[index]['id'].toString(),
-                  });
-                },
-                child: Container(
-                  height: 200,
-                  child: Column(
-                    children: [
-                      Text(album[index]['title']),
-                      Text('ID: ${album[index]['id']}'),
-                    ],
-                  ),
-                ),
-              );
+      appBar: AppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GetBuilder<CounterController>(
+                init: CounterController(),
+                builder: (cnxt) {
+                  return Text(
+                    '${cnxt.count}',
+                    textScaleFactor: 4,
+                  );
+                }),
+            GetX<UserController>(
+                init: UserController(),
+                builder: (cxt) {
+                  return Text('Name: ${cxt.user.value.name}');
+                }),
+            Obx(() {
+              return Text(
+                  "Count: ${Get.find<UserController>().user.value.count}");
             }),
+            
+            ElevatedButton(
+              onPressed: () {
+                Get.find<UserController>()
+                    .updateUser(Get.find<CounterController>().count);
+              },
+              child: Text('Update'),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+          ],
+        ),
       ),
-    ));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.find<CounterController>().increment();
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
