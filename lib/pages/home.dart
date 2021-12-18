@@ -42,6 +42,12 @@ class Home extends StatelessWidget {
             SizedBox(
               height: 25,
             ),
+            ElevatedButton(
+              onPressed: (){
+                Get.toNamed('/second');
+              }, 
+              child: Text('Next Page'),
+              ),
           ],
         ),
       ),
