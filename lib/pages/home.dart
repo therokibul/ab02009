@@ -1,8 +1,10 @@
-
 import 'package:ab02009/pages/cart.dart';
+import 'package:ab02009/pages/login.dart';
 import 'package:ab02009/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:ab02009/models/product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,23 +14,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'ZeroSun',),
+      appBar: CustomAppBar(
+        title: 'ZeroSun',
+      ),
       body: ListView.separated(
           itemBuilder: (context, index) {
             return ListTile(
               onTap: () {
                 setState(() {
-             var contain = cartList.where((element) => element.name==productList[index].name);
-                    if(contain.isEmpty){
-                      cartList.add(productList[index]);
-                    }else{
-                     var cartIndex = cartList.indexWhere((element) => element.name==productList[index].name);
-                     cartList[cartIndex].counter= cartList[cartIndex].counter+1;
-                     print(cartList[cartIndex].counter);
-                    }
+                  var contain = cartList.where(
+                      (element) => element.name == productList[index].name);
+                  if (contain.isEmpty) {
+                    cartList.add(productList[index]);
+                  } else {
+                    var cartIndex = cartList.indexWhere(
+                        (element) => element.name == productList[index].name);
+                    cartList[cartIndex].counter =
+                        cartList[cartIndex].counter + 1;
+                    print(cartList[cartIndex].counter);
+                  }
                 });
               },
               title: Text(productList[index].name),
@@ -39,11 +47,24 @@ class _HomeState extends State<Home> {
             return Divider();
           },
           itemCount: productList.length),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Cart()));
-        },
-        child: const Icon(Icons.shopping_cart_outlined),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart()));
+            },
+            child: const Icon(Icons.shopping_cart_outlined),
+          ),
+          FloatingActionButton(
+            onPressed: () async {
+await _auth.signOut();
+Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Login()));
+            },
+            child: Icon(Icons.logout),
+          )
+        ],
       ),
     );
   }
