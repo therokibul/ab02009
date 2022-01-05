@@ -1,69 +1,68 @@
-import 'package:ab02009/pages/cart.dart';
-import 'package:ab02009/pages/login.dart';
-import 'package:ab02009/widgets/appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:ab02009/models/product_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  Home({Key? key}) : super(key: key);
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController boolController = TextEditingController();
 
-  @override
-  State<Home> createState() => _HomeState();
-}
+  FirebaseFirestore addData = FirebaseFirestore.instance;
 
-class _HomeState extends State<Home> {
-  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'ZeroSun',
-      ),
-      body: ListView.separated(
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {
-                setState(() {
-                  var contain = cartList.where(
-                      (element) => element.name == productList[index].name);
-                  if (contain.isEmpty) {
-                    cartList.add(productList[index]);
-                  } else {
-                    var cartIndex = cartList.indexWhere(
-                        (element) => element.name == productList[index].name);
-                    cartList[cartIndex].counter =
-                        cartList[cartIndex].counter + 1;
-                    print(cartList[cartIndex].counter);
-                  }
-                });
-              },
-              title: Text(productList[index].name),
-              trailing: Text('\$${productList[index].price}'),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider();
-          },
-          itemCount: productList.length),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+      appBar: AppBar(),
+      body: Column(
         children: [
-          FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Cart()));
-            },
-            child: const Icon(Icons.shopping_cart_outlined),
+          TextField(
+            decoration: InputDecoration(hintText: 'Name'),
+            controller: nameController,
           ),
-          FloatingActionButton(
-            onPressed: () async {
-await _auth.signOut();
-Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>Login()));
-            },
-            child: Icon(Icons.logout),
-          )
+          TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(hintText: 'Age'),
+            controller: ageController,
+          ),
+          ElevatedButton(onPressed: () {
+            FirebaseFirestore.instance.collection('data').add({
+              'name': nameController.text,
+              'Age': ageController.text,
+            });
+          }, child: Text('add Data')),
+          Expanded(
+            child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('data').snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return ListView(
+                      children: snapshot.data!.docs.map((document) {
+                        return Card(
+                          child: Column(
+                            children: [
+                              Text(
+                                'Name:  ' + document['name'],
+                                textScaleFactor: 2,
+                              ),
+                              Text(
+                                'Age:  ' + document['Age'].toString(),
+                                textScaleFactor: 2,
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  }
+                }),
+          ),
         ],
       ),
     );
